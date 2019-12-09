@@ -34,8 +34,8 @@ class User extends Component {
   render() {
     return (
       <div>
+        <h2>User Screen</h2>
         <Navbar changeState={this.changeState} logOut={this.logOutFunc} />
-        <div>User Screen</div>
         {this.state.page == "ViewParking" ? <ViewParking /> : null}
         {this.state.page == "BookParking" ? <BookParking /> : null}
         {this.state.page == "ViewBooking" ? <ViewBooking /> : null}

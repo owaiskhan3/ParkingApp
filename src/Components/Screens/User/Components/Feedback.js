@@ -1,9 +1,26 @@
 import React, { Component } from "react";
-
+import firebase from "../../../../config/firebase";
+import Swal from "sweetalert2";
 class Feedback extends Component {
   state = {
     userFeedback: ""
   };
+
+  submitFeedback = async () => {
+    const { userFeedback } = this.state;
+    console.log(userFeedback);
+    this.setState({ userFeedback: "" });
+
+    if (userFeedback !== "") {
+      let userId = await firebase.getUid();
+
+      console.log(userId);
+      await firebase.submitFeedback(userFeedback, userId);
+    } else {
+      Swal.fire("Invalid Input", "Please Enter Your Feedback", "error");
+    }
+  };
+
   render() {
     return (
       <div>
@@ -17,6 +34,7 @@ class Feedback extends Component {
         >
           <textarea
             onChange={e => this.setState({ userFeedback: e.target.value })}
+            value={this.state.userFeedback}
             style={{
               width: "100%",
               height: "100%"
@@ -33,7 +51,7 @@ class Feedback extends Component {
               className="btn waves-effect waves-light"
               type="submit"
               name="action"
-              onClick={() => console.log(this.state.userFeedback)}
+              onClick={() => this.submitFeedback()}
             >
               Submit
             </button>

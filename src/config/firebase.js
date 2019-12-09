@@ -187,6 +187,19 @@ async function getStudents() {
   return usersData;
 }
 
+async function updateSlots(docId, data) {
+  console.log("docId", docId);
+  console.log("data", data);
+
+  await firebase
+    .firestore()
+    .collection("slots")
+    .doc(docId)
+    .set({ slots: data }, { merge: true });
+
+  Swal.fire("Success", "Deleted Past Parking Record", "success");
+}
+
 async function getSlots() {
   let slots = [];
   await firebase
@@ -197,7 +210,6 @@ async function getSlots() {
     .then(function(querySnapshot) {
       querySnapshot.forEach(function(doc) {
         console.log(doc.id, " => ", doc.data());
-        // console.log({ [doc.id]: doc.data() });
         slots.push(doc.data());
         return doc.data();
       });
@@ -248,6 +260,42 @@ async function getUid() {
   return uid.data().userId;
 }
 
+async function submitFeedback(feedback, uid) {
+  let data = await this.checkUser(uid);
+  console.log(data);
+
+  await firebase
+    .firestore()
+    .collection("userFeedback")
+    .doc(uid)
+    .set({ feedback, userInfo: data });
+
+  Swal.fire(
+    "Feedback Submitted Successfully",
+    "Thankyou for your feedback.",
+    "success"
+  );
+}
+
+async function getFeedbacks() {
+  let userFeedback = [];
+  await firebase
+    .firestore()
+    .collection("userFeedback")
+    .get()
+    .then(querySnapshot => {
+      querySnapshot.forEach(doc => {
+        console.log("DocId", doc.id);
+        console.log("Data", doc.data());
+        userFeedback.push({
+          userInfo: doc.data().userInfo,
+          feedback: doc.data().feedback
+        });
+      });
+    });
+  return userFeedback;
+}
+
 export default {
   signInWithFirebase,
   signUpWithFirebase,
@@ -259,5 +307,8 @@ export default {
   logOut,
   getSlots,
   setSlots,
-  getUid
+  getUid,
+  submitFeedback,
+  getFeedbacks,
+  updateSlots
 };

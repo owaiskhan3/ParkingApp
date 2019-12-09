@@ -81,7 +81,7 @@ class Dashboard extends Component {
       <div>
         <Navbar />
 
-        <button
+        {/* <button
           className="btn waves-effect waves-light"
           type="submit"
           name="action"
@@ -90,9 +90,9 @@ class Dashboard extends Component {
         >
           Logout
           <i className="material-icons right"></i>
-        </button>
+        </button> */}
 
-        <h1>Dashboard</h1>
+        {/* <h1>Dashboard</h1> */}
 
         {/* {userdata ? this.renderInfo(userdata) : <p>Loading...</p>} */}
 

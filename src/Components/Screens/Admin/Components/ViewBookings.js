@@ -21,10 +21,42 @@ class ViewBookings extends Component {
     this.setState({ slotsArr, loading: false });
   };
 
+  deleteBooking = async () => {
+    console.log("delete booking func");
+    let slots = await firebase.getSlots();
+    console.log(slots);
+
+    let currDate = moment(new Date());
+    console.log(currDate);
+
+    let newSlot = [];
+    slots.map(slot => {
+      let slotArr = [];
+      let slotName = slot.slotName;
+      slot.slots.filter(slot => {
+        // console.log(slot.parkingStartTime.seconds);
+        console.log(moment(slot.parkingStartTime.seconds * 1000));
+        console.log(currDate < moment(slot.parkingStartTime.seconds * 1000));
+        return currDate < moment(slot.parkingStartTime.seconds * 1000)
+          ? slotArr.push(slot)
+          : null;
+      });
+      newSlot.push({ slot: slotArr, slotName });
+    });
+    console.log("newSlot", newSlot);
+    newSlot.map(slot => {
+      console.log(slot);
+      firebase.updateSlots(slot.slotName, slot.slot);
+    });
+  };
+
   render() {
     return (
       <div>
         <h1>View Bookings</h1>
+        <button onClick={() => this.deleteBooking()}>
+          Delete Expired Bookings
+        </button>
         {this.state.loading ? (
           <div style={{ display: "flex", margin: "0 auto" }}>
             <img src={loader} style={{ margin: "0 auto" }} />
@@ -33,6 +65,7 @@ class ViewBookings extends Component {
         {this.state.slotsArr
           ? this.state.slotsArr.map((slots, index) => {
               // slots.slots.map(slot => {
+
               console.log(
                 "Booking Date=>",
                 moment(slots.date.seconds * 1000).format("MM-DD-YYYY")

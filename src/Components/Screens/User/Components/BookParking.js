@@ -65,8 +65,6 @@ class BookParking extends Component {
       "MM-DD-YYYY HH:mm:ss"
     );
 
-    // console.log(startDate);
-
     let slotSet = new Set();
 
     let valuesOfSets;
@@ -108,7 +106,7 @@ class BookParking extends Component {
           slotTimeStart,
           slotTimeEnd,
           null,
-          "[]"
+          "(]"
         );
         console.log("startTimeisBetween", showSlot);
         console.log("endTimeisBetween", showSlot1);
@@ -127,9 +125,6 @@ class BookParking extends Component {
 
           console.log("slotSet=>", slotSet);
         }
-        // else {
-        //   slotSet = slotSet;
-        // }
       })
     );
 
