@@ -6,7 +6,6 @@ import moment from "moment";
 class BookParking extends Component {
   state = {
     showSlots: false
-    // start_time: "1"
   };
 
   handleChange = e => {
@@ -47,7 +46,8 @@ class BookParking extends Component {
     this.setState({
       start_date: "",
       start_time: "",
-      time_duration: ""
+      time_duration: "",
+      showSlots: false
     });
   };
 
@@ -96,6 +96,13 @@ class BookParking extends Component {
         slotTimeStart = moment(slotTimeStart);
         slotTimeEnd = moment(slotTimeEnd);
 
+        let Duration = moment
+          .duration(slotTimeStart.diff(slotTimeEnd))
+          .toJSON();
+        console.log("Duration=>", Duration);
+
+        // console.log(Duration.isBetween(slotTimeStart, slotTimeEnd, null, "[)"));
+
         let showSlot = moment(startDate).isBetween(
           slotTimeStart,
           slotTimeEnd,
@@ -129,20 +136,21 @@ class BookParking extends Component {
     );
 
     let value;
-    console.log(slots);
 
-    valuesOfSets = slotSet.values();
+    console.log(slotSet);
+    console.log(slotSet.size);
 
-    value = valuesOfSets.next().value;
-    console.log(value);
-    return (
-      <div>
-        <div style={{ display: "flex" }}>
-          {slots.map((slot1, index) => {
-            console.log(slot1.slotName);
-            console.log(value);
-            if (slot1.slotName !== value) {
-              console.log("not equal");
+    var slotArr = [];
+    slotArr = Array.from(slotSet);
+    console.log("SlotArr =>", slotArr);
+
+    if (slotSet.size == 0) {
+      return (
+        <div>
+          <div style={{ display: "flex" }}>
+            {slots.map((slot1, index) => {
+              console.log(slot1.slotName);
+
               return (
                 <div
                   style={{ margin: "20px", width: "100px", height: "40px" }}
@@ -161,23 +169,146 @@ class BookParking extends Component {
                   >{`${slot1.slotName}`}</button>
                 </div>
               );
-            } else {
-              return null;
-            }
-          })}
+            })}
+          </div>
+          <div>
+            <button
+              className="btn waves-effect waves-light blue"
+              // type="submit"
+              name="action"
+              onClick={() => this.submit()}
+            >
+              Submit
+            </button>
+          </div>
         </div>
+      );
+    } else if (slotSet.size == 1) {
+      valuesOfSets = slotSet.values();
+
+      console.log(valuesOfSets);
+      console.log(valuesOfSets.size);
+
+      let value1 = valuesOfSets.value;
+      console.log(value1);
+      value = valuesOfSets.next().value;
+      console.log(value);
+
+      return (
         <div>
-          <button
-            className="btn waves-effect waves-light blue"
-            // type="submit"
-            name="action"
-            onClick={() => this.submit()}
-          >
-            Submit
-          </button>
+          <div style={{ display: "flex" }}>
+            {slots.map((slot1, index) => {
+              console.log(slot1.slotName);
+              // value = valuesOfSets.next().value;
+              // console.log(value);
+              if (slot1.slotName !== value && slot1.slotName !== value1) {
+                console.log("not equal");
+                return (
+                  <div
+                    style={{ margin: "20px", width: "100px", height: "40px" }}
+                    key={slot1.slotName}
+                  >
+                    <button
+                      className="btn waves-effect waves-light "
+                      style={{
+                        width: "100%",
+                        height: "100%",
+                        backgroundColor: "#9837BF"
+                      }}
+                      onClick={() =>
+                        this.setState({ bookedSlot: `slot${index + 1}` })
+                      }
+                    >{`${slot1.slotName}`}</button>
+                  </div>
+                );
+              } else if (value == undefined) {
+                return <div>No Slot Available</div>;
+              }
+            })}
+          </div>
+          <div>
+            <button
+              className="btn waves-effect waves-light blue"
+              // type="submit"
+              name="action"
+              onClick={() => this.submit()}
+            >
+              Submit
+            </button>
+          </div>
         </div>
-      </div>
-    );
+      );
+    } else if (slotSet.size > 1) {
+      let slotArr = Array.from(slotSet);
+      console.log(slotArr);
+
+      valuesOfSets = slotSet.values();
+
+      console.log(valuesOfSets);
+
+      slotArr.map(slotValue => {
+        {
+          let arr = [];
+          slots.map((slot, value) => {
+            let val;
+            if (slot.slotName !== slotValue) {
+              val = slot.slotName;
+            }
+            arr.push(val);
+            // else {
+            //   arr.push(slot.slotName);
+            // }
+          });
+          console.log(arr);
+        }
+      });
+
+      return (
+        <div>
+          <div style={{ display: "flex" }}>
+            {slots.map((slot1, index) => {
+              console.log(slot1.slotName);
+              // value = valuesOfSets.next().value;
+              // console.log(value);
+              slotArr.map(value => {
+                console.log(value);
+                if (slot1.slotName !== value) {
+                  console.log("not equal");
+                  return (
+                    <div
+                      style={{ margin: "20px", width: "100px", height: "40px" }}
+                      key={slot1.slotName}
+                    >
+                      <button
+                        className="btn waves-effect waves-light "
+                        style={{
+                          width: "100%",
+                          height: "100%",
+                          backgroundColor: "#9837BF"
+                        }}
+                        onClick={() =>
+                          this.setState({ bookedSlot: `slot${index + 1}` })
+                        }
+                      >{`${slot1.slotName}`}</button>
+                    </div>
+                  );
+                }
+              });
+            })}
+          </div>
+          <div>
+            <button
+              className="btn waves-effect waves-light blue"
+              // type="submit"
+              name="action"
+              onClick={() => this.submit()}
+            >
+              Submit
+            </button>
+          </div>
+        </div>
+      );
+    }
   };
 
   render() {
@@ -199,6 +330,7 @@ class BookParking extends Component {
             onChange={this.handleChange}
             name="start_date"
             defaultValue={this.state.start_date}
+            value={this.state.start_date}
             className="validate"
           />
 
@@ -208,24 +340,22 @@ class BookParking extends Component {
               style={{ display: "block" }}
               name="start_time"
               onChange={this.handleChange}
+              value={this.state.start_time}
               defaultValue={this.state.start_time}
             >
-              <option disabled selected>
+              <option value="" disabled selected>
                 Select Time
               </option>
 
-              <option value="1">1:00</option>
-              <option value="2">2:00</option>
-              <option value="3">3:00</option>
-              <option value="4">4:00</option>
-              <option value="5">5:00</option>
-              <option value="6">6:00</option>
-              <option value="7">7:00</option>
-              <option value="8">8:00</option>
-              <option value="9">9:00</option>
+              <option value="9">09:00</option>
               <option value="10">10:00</option>
               <option value="11">11:00</option>
               <option value="12">12:00</option>
+              <option value="13">13:00</option>
+              <option value="14">14:00</option>
+              <option value="15">15:00</option>
+              <option value="16">16:00</option>
+              <option value="17">17:00</option>
             </select>
           </div>
 
@@ -235,17 +365,18 @@ class BookParking extends Component {
               style={{ display: "block" }}
               name="time_duration"
               onChange={this.handleChange}
+              value={this.state.time_duration}
               defaultValue={this.state.time_duration}
             >
               <option value="" disabled selected>
                 Select Hrs
               </option>
-              <option value="1">1:00</option>
-              <option value="2">2:00</option>
-              <option value="3">3:00</option>
-              <option value="4">4:00</option>
-              <option value="5">5:00</option>
-              <option value="6">6:00</option>
+              <option value="1">1 hrs</option>
+              <option value="2">2 hrs</option>
+              <option value="3">3 hrs</option>
+              <option value="4">4 hrs</option>
+              <option value="5">5 hrs</option>
+              <option value="6">6 hrs</option>
             </select>
           </div>
 

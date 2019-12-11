@@ -36,10 +36,10 @@ class Admin extends Component {
       <div>
         <h2>Admin Screen</h2>
         <Navbar changeState={this.changeState} logOut={this.logOutFunc} />
-        {this.state.page == "AddUser" ? <AddUser /> : null}
-        {this.state.page == "ViewBookings" ? <ViewBookings /> : null}
-        {this.state.page == "ViewStudents" ? <ViewStudents /> : null}
-        {this.state.page == "ViewFeedback" ? <ViewFeedback /> : null}
+        {this.state.page === "AddUser" ? <AddUser /> : null}
+        {this.state.page === "ViewBookings" ? <ViewBookings /> : null}
+        {this.state.page === "ViewStudents" ? <ViewStudents /> : null}
+        {this.state.page === "ViewFeedback" ? <ViewFeedback /> : null}
       </div>
     );
   }

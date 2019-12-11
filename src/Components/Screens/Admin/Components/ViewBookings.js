@@ -52,9 +52,15 @@ class ViewBookings extends Component {
 
   render() {
     return (
-      <div>
+      <div style={{ display: "flex", flexDirection: "column" }}>
         <h1>View Bookings</h1>
-        <button onClick={() => this.deleteBooking()}>
+        <button
+          className="btn waves-effect waves-light red"
+          type="submit"
+          name="action"
+          onClick={() => this.deleteBooking()}
+          style={{ width: " 250px", alignSelf: "flex-end", margin: "20" }}
+        >
           Delete Expired Bookings
         </button>
         {this.state.loading ? (

@@ -10,7 +10,7 @@ import Feedback from "./Components/Feedback";
 
 class User extends Component {
   state = {
-    page: "ViewParking"
+    page: "BookParking"
   };
 
   changeState = page => {
@@ -36,10 +36,10 @@ class User extends Component {
       <div>
         <h2>User Screen</h2>
         <Navbar changeState={this.changeState} logOut={this.logOutFunc} />
-        {this.state.page == "ViewParking" ? <ViewParking /> : null}
-        {this.state.page == "BookParking" ? <BookParking /> : null}
-        {this.state.page == "ViewBooking" ? <ViewBooking /> : null}
-        {this.state.page == "Feedback" ? <Feedback /> : null}
+        {/* {this.state.page == "ViewParking" ? <ViewParking /> : null} */}
+        {this.state.page === "BookParking" ? <BookParking /> : null}
+        {this.state.page === "ViewBooking" ? <ViewBooking /> : null}
+        {this.state.page === "Feedback" ? <Feedback /> : null}
       </div>
     );
   }

@@ -23,10 +23,10 @@ class UserNavbar extends Component {
             justifyContent: "space-around"
           }}
         >
-          <Buttons
+          {/* <Buttons
             title="View Parking"
             func={() => this.props.changeState("ViewParking")}
-          />
+          /> */}
           <Buttons
             title="Book Parking"
             func={() => this.props.changeState("BookParking")}

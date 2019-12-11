@@ -12,8 +12,6 @@ import Register from "./Components/Register";
 import Dashboard from "./Components/Dashboard";
 import PrivateRoute from "./Components/PrivateRoute";
 
-
-
 class App extends Component {
   state = {};
   render() {
@@ -24,12 +22,6 @@ class App extends Component {
             <Route exact path="/" component={Login} />
             <Route exact path="/register" component={Register} />
             <PrivateRoute path="/dashboard" component={Dashboard} />
-            {/* <Route exact path="/adminLogin" component={AdminLogin} />
-            <PrivateRoute exact path="/makeQuiz" component={MakeQuiz} />
-            <PrivateRoute exact path="/updateQuiz" component={UpdateQuiz} />
-            <PrivateRoute exact path="/updatingQuiz" component={UpdatingQuiz} />
-            <PrivateRoute path="/home" component={Home} />
-            <Redirect to={localStorage.path || "/home"} /> */}
           </Switch>
         </Router>
       </div>

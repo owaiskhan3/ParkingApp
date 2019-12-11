@@ -29,7 +29,7 @@ async function signUpWithFirebase(
     var response = await firebase
       .auth()
       .createUserWithEmailAndPassword(email, password);
-    console.log("signup");
+    // console.log("signup");
 
     return await firebase
       .firestore()
@@ -54,7 +54,7 @@ async function signInWithFirebase(email, password) {
     var response = await firebase
       .auth()
       .signInWithEmailAndPassword(email, password);
-    console.log("signin");
+    // console.log("signin");
     return response;
   } catch (error) {
     Swal.fire("Error", error.message, "error");
@@ -81,15 +81,15 @@ async function checkUser(uid) {
       .collection("users")
       .doc(uid)
       .get();
-    console.log(user);
+    // console.log(user);
 
     let data = await user.data();
-    console.log(data);
+    // console.log(data);
     return data;
   } catch (e) {
     Swal.fire("Error", e.message, "error");
 
-    console.log(e.message);
+    // console.log(e.message);
   }
 }
 
@@ -99,14 +99,14 @@ async function getUserType() {
     .collection("currUser")
     .doc("uid")
     .get();
-  console.log(uid.data());
+  // console.log(uid.data());
 
   let userData = await firebase
     .firestore()
     .collection("users")
     .doc(uid.data().userId)
     .get();
-  console.log(userData.data());
+  // console.log(userData.data());
   return userData;
 }
 
@@ -118,7 +118,7 @@ async function logOut() {
       window.location.assign("/");
     }, 1000);
 
-    console.log("loggout");
+    // console.log("loggout");
 
     return response;
   } catch (e) {
@@ -130,7 +130,7 @@ async function logOut() {
 
 async function addStudent(student) {
   try {
-    console.log(student);
+    // console.log(student);
     const { st_email, st_pass } = student;
 
     let uid = await firebase
@@ -140,11 +140,11 @@ async function addStudent(student) {
         return res.user.uid;
       });
 
-    console.log(uid);
+    // console.log(uid);
 
     student.uid = uid;
 
-    console.log(student);
+    // console.log(student);
 
     await firebase
       .firestore()
@@ -176,10 +176,10 @@ async function getStudents() {
     .firestore()
     .collection("students")
     .get()
-    .then(function(querySnapshot) {
-      querySnapshot.forEach(function(doc) {
+    .then(querySnapshot => {
+      querySnapshot.docs.forEach(function(doc) {
         // doc.data() is never undefined for query doc snapshots
-        console.log(doc.id, " => ", doc.data());
+        // console.log(doc.id, " => ", doc.data());
         usersData.push(doc.data());
         return doc.data();
       });
@@ -188,8 +188,8 @@ async function getStudents() {
 }
 
 async function updateSlots(docId, data) {
-  console.log("docId", docId);
-  console.log("data", data);
+  // console.log("docId", docId);
+  // console.log("data", data);
 
   await firebase
     .firestore()
@@ -207,32 +207,32 @@ async function getSlots() {
     .collection("slots")
 
     .get()
-    .then(function(querySnapshot) {
-      querySnapshot.forEach(function(doc) {
-        console.log(doc.id, " => ", doc.data());
+    .then(querySnapshot => {
+      querySnapshot.docs.forEach(function(doc) {
+        // console.log(doc.id, " => ", doc.data());
         slots.push(doc.data());
         return doc.data();
       });
     });
 
-  console.log(slots);
+  // console.log(slots);
   return slots;
 }
 
 async function setSlots(data) {
-  console.log(data);
+  // console.log(data);
   const { bookedSlot, start_date, parkingStartTime, parkingEndTime } = data;
-  console.log(bookedSlot);
-  console.log(start_date);
-  console.log(parkingStartTime);
-  console.log(parkingEndTime);
+  // console.log(bookedSlot);
+  // console.log(start_date);
+  // console.log(parkingStartTime);
+  // console.log(parkingEndTime);
 
   let uid = await firebase
     .firestore()
     .collection("currUser")
     .doc("uid")
     .get();
-  console.log(uid.data());
+  // console.log(uid.data());
 
   let objToSend = {
     uid: uid.data().userId,
@@ -256,13 +256,13 @@ async function getUid() {
     .collection("currUser")
     .doc("uid")
     .get();
-  console.log(uid.data());
+  // console.log(uid.data());
   return uid.data().userId;
 }
 
 async function submitFeedback(feedback, uid) {
   let data = await this.checkUser(uid);
-  console.log(data);
+  // console.log(data);
 
   await firebase
     .firestore()
@@ -285,8 +285,8 @@ async function getFeedbacks() {
     .get()
     .then(querySnapshot => {
       querySnapshot.forEach(doc => {
-        console.log("DocId", doc.id);
-        console.log("Data", doc.data());
+        // console.log("DocId", doc.id);
+        // console.log("Data", doc.data());
         userFeedback.push({
           userInfo: doc.data().userInfo,
           feedback: doc.data().feedback
