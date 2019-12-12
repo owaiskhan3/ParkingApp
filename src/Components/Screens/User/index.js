@@ -17,25 +17,25 @@ class User extends Component {
     this.setState({ page: page });
   };
 
-  logOutFunc = async () => {
-    try {
-      console.log("logout running");
-      await firebase.logOut().then(() => {
-        // localStorage.path = "/";
-        localStorage.clear();
-        Swal.fire("Success", "Successfully LoggedOut", "success");
-        this.props.history.push("/");
-      });
-    } catch (e) {
-      console.log(e);
-    }
-  };
+  // logOutFunc = async () => {
+  //   try {
+  //     console.log("logout running");
+  //     await firebase.logOut().then(() => {
+  //       // localStorage.path = "/";
+  //       localStorage.clear();
+  //       Swal.fire("Success", "Successfully LoggedOut", "success");
+  //       this.props.history.push("/");
+  //     });
+  //   } catch (e) {
+  //     console.log(e);
+  //   }
+  // };
 
   render() {
     return (
       <div>
         <h2>User Screen</h2>
-        <Navbar changeState={this.changeState} logOut={this.logOutFunc} />
+        <Navbar changeState={this.changeState} logOut={this.props.logout} />
         {/* {this.state.page == "ViewParking" ? <ViewParking /> : null} */}
         {this.state.page === "BookParking" ? <BookParking /> : null}
         {this.state.page === "ViewBooking" ? <ViewBooking /> : null}

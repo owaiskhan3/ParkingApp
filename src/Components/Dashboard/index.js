@@ -41,7 +41,11 @@ class Dashboard extends Component {
   renderUser = userdata => {
     console.log(userdata);
 
-    return userdata.types == "admin" ? <Admin /> : <User />;
+    return userdata.types == "admin" ? (
+      <Admin logout={this.logOutFunc} />
+    ) : (
+      <User logout={this.logOutFunc} />
+    );
   };
 
   renderInfo = userdata => {

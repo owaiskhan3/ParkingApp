@@ -17,25 +17,11 @@ class Admin extends Component {
     this.setState({ page });
   };
 
-  logOutFunc = async () => {
-    try {
-      console.log("logout running");
-      await firebase.logOut().then(() => {
-        // localStorage.path = "/";
-        localStorage.clear();
-        Swal.fire("Success", "Successfully LoggedOut", "success");
-        this.props.history.push("/");
-      });
-    } catch (e) {
-      console.log(e);
-    }
-  };
-
   render() {
     return (
       <div>
         <h2>Admin Screen</h2>
-        <Navbar changeState={this.changeState} logOut={this.logOutFunc} />
+        <Navbar changeState={this.changeState} logOut={this.props.logout} />
         {this.state.page === "AddUser" ? <AddUser /> : null}
         {this.state.page === "ViewBookings" ? <ViewBookings /> : null}
         {this.state.page === "ViewStudents" ? <ViewStudents /> : null}
