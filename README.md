@@ -1,3 +1,10 @@
+In this app users can see available parking on their desired timings and book a parking. Admin can see al the parkings and can delete past parking data. This app is built on reactJs, firebase, materializeCSS.
+
+# For Live Demo
+
+[ParkingApp](https://parkingapp-595dc.firebaseapp.com/).
+
+#
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
