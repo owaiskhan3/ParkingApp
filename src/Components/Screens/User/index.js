@@ -17,20 +17,6 @@ class User extends Component {
     this.setState({ page: page });
   };
 
-  // logOutFunc = async () => {
-  //   try {
-  //     console.log("logout running");
-  //     await firebase.logOut().then(() => {
-  //       // localStorage.path = "/";
-  //       localStorage.clear();
-  //       Swal.fire("Success", "Successfully LoggedOut", "success");
-  //       this.props.history.push("/");
-  //     });
-  //   } catch (e) {
-  //     console.log(e);
-  //   }
-  // };
-
   render() {
     return (
       <div>
