@@ -31,24 +31,34 @@ class BookParking extends Component {
     let { start_date, start_time, time_duration } = this.state;
 
     console.log("start_date=>", start_date);
+
     let m = moment(`${start_date} ${start_time}:00`);
-    let parkingStartTime = m.toString();
-    console.log("starttime=>", parkingStartTime);
 
-    let parkingEndTime = moment(parkingStartTime).add(time_duration, "h");
-    parkingEndTime = parkingEndTime.toString();
-    console.log("endtime=>", parkingEndTime);
+    let currDate = moment(new Date());
 
-    data.parkingStartTime = parkingStartTime;
-    data.parkingEndTime = parkingEndTime;
-    await firebase.setSlots(data);
-    Swal.fire("Success", "Successfully Booked a Parking Slot", "success");
-    this.setState({
-      start_date: "",
-      start_time: "",
-      time_duration: "",
-      showSlots: false
-    });
+    console.log(m.diff(currDate));
+    var checkPast = m.diff(currDate);
+    if (checkPast > 0) {
+      let parkingStartTime = m.toString();
+      console.log("starttime=>", parkingStartTime);
+
+      let parkingEndTime = moment(parkingStartTime).add(time_duration, "h");
+      parkingEndTime = parkingEndTime.toString();
+      console.log("endtime=>", parkingEndTime);
+
+      data.parkingStartTime = parkingStartTime;
+      data.parkingEndTime = parkingEndTime;
+      await firebase.setSlots(data);
+      Swal.fire("Success", "Successfully Booked a Parking Slot", "success");
+      this.setState({
+        start_date: "",
+        start_time: "",
+        time_duration: "",
+        showSlots: false
+      });
+    } else {
+      Swal.fire("Warning", "Please Enter Future Date", "warning");
+    }
   };
 
   componentDidMount = async () => {
