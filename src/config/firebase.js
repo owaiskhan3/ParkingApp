@@ -174,7 +174,7 @@ async function getStudents() {
   let usersData = [];
   await firebase
     .firestore()
-    .collection("students")
+    .collection("users")
     .get()
     .then(querySnapshot => {
       querySnapshot.docs.forEach(function(doc) {

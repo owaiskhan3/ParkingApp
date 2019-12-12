@@ -32,26 +32,20 @@ class ViewStudents extends Component {
             <table>
               <thead>
                 <tr>
-                  <th>Student ID</th>
-                  <th>Student Name</th>
-                  <th>Email</th>
-                  <th>Contact</th>
-                  <th>DOB</th>
-                  <th>Class</th>
-                  <th>Gender</th>
+                  <th>Student Id</th>
+                  <th>Student Email</th>
+                  <th>FirstName</th>
+                  <th>LastName</th>
                 </tr>
               </thead>
               <tbody>
                 {this.state.students.map((student, index) => {
                   return (
                     <tr key={index}>
-                      {<td>{student.st_Id}</td>}
-                      <td>{student.st_name}</td>
-                      <td>{student.st_email}</td>
-                      <td>{student.st_mob}</td>
-                      <td>{student.st_dob}</td>
-                      <td>{student.st_class}</td>
-                      <td>{student.gender}</td>
+                      {<td>{student.uid}</td>}
+                      <td>{student.email}</td>
+                      <td>{student.firstName}</td>
+                      <td>{student.lastName}</td>
                     </tr>
                   );
                 })}
