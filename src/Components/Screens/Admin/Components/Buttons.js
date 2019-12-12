@@ -8,7 +8,12 @@ class Buttons extends Component {
         className="btn waves-effect waves-light"
         type="submit"
         name="action"
-        style={{ width: "15%", height: "90%" }}
+        style={{
+          width: "160px",
+          height: "50px",
+          margin: "5px 5px",
+          fontSize: "16px"
+        }}
         onClick={() => this.props.func()}
       >
         {this.props.title}

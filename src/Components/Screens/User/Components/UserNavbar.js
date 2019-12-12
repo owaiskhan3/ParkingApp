@@ -14,13 +14,23 @@ class UserNavbar extends Component {
   };
   render() {
     return (
-      <nav style={{ backgroundColor: "beige" }}>
+      <nav
+        style={{
+          backgroundColor: "#f4f5f4",
+          display: "flex",
+          flexWrap: "wrap",
+          height: "100%"
+        }}
+      >
         <div
           className="nav-wrapper"
           style={{
             display: "flex",
             alignItems: "center",
-            justifyContent: "space-around"
+            justifyContent: "space-around",
+            flexWrap: "wrap",
+            flexFlow: "wrap",
+            width: "100%"
           }}
         >
           {/* <Buttons
